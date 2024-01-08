@@ -1,0 +1,13 @@
+GET http://localhost:8080/api/v1/opening
+
+###
+POST http://localhost:8080/api/v1/opening
+
+###
+GET http://localhost:8080/api/v1/openings 
+
+###
+PUT http://localhost:8080/api/v1/opening
+
+###
+DELETE  http://localhost:8080/api/v1/opening
