@@ -8,7 +8,7 @@ import (
 
 func ShowOpeningHandler(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "POST opening",
+		"message": "GET opening",
 		"status": 200,
 	})
 }
