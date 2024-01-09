@@ -1,4 +1,4 @@
-GET http://localhost:8080/api/v1/opening
+GET http://localhost:8080/api/v1/opening/1
 
 ###
 POST http://localhost:8080/api/v1/opening
@@ -17,7 +17,17 @@ Content-Type: application/json
 GET http://localhost:8080/api/v1/openings 
 
 ###
-PUT http://localhost:8080/api/v1/opening
+PUT http://localhost:8080/api/v1/opening/2
+Content-Type: application/json
+
+{
+    "role": "Software Back-end Engineer",
+    "company": "Google",
+    "location": "Mountain View, CA",
+    "Link": "http://www.google.com",
+    "salary": 100000,
+    "remote": true
+}
 
 ###
-DELETE  http://localhost:8080/api/v1/opening
+DELETE  http://localhost:8080/api/v1/opening/1
