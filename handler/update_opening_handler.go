@@ -20,6 +20,7 @@ import (
 // @Param Authorization header string true "With the bearer started"
 // @Success 200 {object} UpdateOpeningResponse
 // @Failure 400 {object} ErrorResponse
+// @Failure 401 {object} ErrorResponse
 // @Failure 404 {object} ErrorResponse
 // @Failure 500 {object} ErrorResponse
 // @Router /opening/{id} [put]
