@@ -40,6 +40,15 @@ func UpdateUserHandler(ctx *gin.Context) {
 		return
 	}
 
+	userForVerify := schemas.User{}
+
+	//verify if login already exists
+	if err := db.Where("login = ? AND id != ?", request.Login, id).First(&userForVerify).Error; err == nil {
+		logger.Errorf("error creating user: %v", err)
+		utils.SendError(ctx, http.StatusBadRequest, "login already exists")
+		return
+	}
+
 	hash, err := security.HashPassword(request.Password)
 	if err != nil {
 		logger.Errorf("error hashing password: %v", err)
@@ -51,6 +60,12 @@ func UpdateUserHandler(ctx *gin.Context) {
 		Login:    request.Login,
 		Password: hash,
 		Name:     request.Name,
+	}
+
+	//verify if user exists
+	if err := db.Where("id = ?", id).First(&user).Error; err != nil {
+		utils.SendError(ctx, http.StatusNotFound, "user not found")
+		return
 	}
 
 	if err := db.Model(&user).Where("id = ?", id).Updates(user).Error; err != nil {

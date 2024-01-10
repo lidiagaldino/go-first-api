@@ -38,6 +38,13 @@ func CreateUserHandler(ctx *gin.Context) {
 		return
 	}
 
+	//verify if login already exists
+	if err := db.Where("login = ?", request.Login).First(&schemas.User{}).Error; err == nil {
+		logger.Errorf("error creating user: %v", err)
+		utils.SendError(ctx, http.StatusBadRequest, "login already exists")
+		return
+	}
+
 	user := schemas.User{
 		Login:    request.Login,
 		Password: hash,
