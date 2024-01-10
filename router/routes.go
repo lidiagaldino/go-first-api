@@ -5,12 +5,14 @@ import (
 	docs "github.com/lidiagaldino/go-first-api/docs"
 	"github.com/lidiagaldino/go-first-api/handler"
 	"github.com/lidiagaldino/go-first-api/middleware"
+	"github.com/lidiagaldino/go-first-api/security"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func initializeRoutes(router *gin.Engine) {
 	handler.Init()
+	security.Init()
 	basePath := "/api/v1"
 	v1 := router.Group(basePath)
 	docs.SwaggerInfo.BasePath = basePath
