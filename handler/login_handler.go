@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lidiagaldino/go-first-api/authentication"
 	"github.com/lidiagaldino/go-first-api/schemas"
+	"github.com/lidiagaldino/go-first-api/security"
 	"github.com/lidiagaldino/go-first-api/utils"
 )
 
@@ -19,10 +20,14 @@ func LoginHandler(ctx *gin.Context) {
 	}
 
 	user := schemas.User{
-		Login:    request.Login,
-		Password: request.Password,
+		Login: request.Login,
 	}
-	if err := db.Model(&user).Where("login = ? AND password = ?", user.Login, user.Password).First(&user).Error; err != nil {
+	if err := db.Model(&user).Where("login = ? ", user.Login).First(&user).Error; err != nil {
+		utils.SendError(ctx, http.StatusUnauthorized, "unauthorized user")
+		return
+	}
+
+	if err := security.CheckPasswordHash(request.Password, user.Password); err {
 		utils.SendError(ctx, http.StatusUnauthorized, "unauthorized user")
 		return
 	}
