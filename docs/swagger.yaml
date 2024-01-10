@@ -33,7 +33,7 @@ definitions:
   handler.CreateUserResponse:
     properties:
       data:
-        $ref: '#/definitions/schemas.UserResponse'
+        $ref: '#/definitions/handler.UserResponse'
       message:
         type: string
     type: object
@@ -47,7 +47,7 @@ definitions:
   handler.DeleteUserResponse:
     properties:
       data:
-        $ref: '#/definitions/schemas.UserResponse'
+        $ref: '#/definitions/handler.UserResponse'
       message:
         type: string
     type: object
@@ -71,9 +71,21 @@ definitions:
     properties:
       data:
         items:
-          $ref: '#/definitions/schemas.UserResponse'
+          $ref: '#/definitions/handler.UserResponse'
         type: array
       message:
+        type: string
+    type: object
+  handler.LoginRequest:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    type: object
+  handler.LoginResponse:
+    properties:
+      token:
         type: string
     type: object
   handler.ShowOpeningResponse:
@@ -86,7 +98,7 @@ definitions:
   handler.ShowUserResponse:
     properties:
       data:
-        $ref: '#/definitions/schemas.UserResponse'
+        $ref: '#/definitions/handler.UserResponse'
       message:
         type: string
     type: object
@@ -126,6 +138,21 @@ definitions:
       data:
         $ref: '#/definitions/schemas.UserResponse'
       message:
+        type: string
+    type: object
+  handler.UserResponse:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      id:
+        type: integer
+      login:
+        type: string
+      name:
+        type: string
+      updatedAt:
         type: string
     type: object
   schemas.OpeningResponse:
@@ -171,6 +198,40 @@ definitions:
 info:
   contact: {}
 paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Login
+      parameters:
+      - description: User data to login
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/handler.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.LoginResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Login
+      tags:
+      - Users
   /opening:
     post:
       consumes:

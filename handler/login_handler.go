@@ -10,6 +10,19 @@ import (
 	"github.com/lidiagaldino/go-first-api/utils"
 )
 
+// @BasePath /api/v1
+
+// @Summary Login
+// @Description Login
+// @Tags Users
+// @Accept json
+// @Produce json
+// @Param user body LoginRequest true "User data to login"
+// @Success 200 {object} LoginResponse
+// @Failure 401 {object} ErrorResponse
+// @Failure 400 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /login [post]
 func LoginHandler(ctx *gin.Context) {
 	request := LoginRequest{}
 	ctx.BindJSON(&request)
