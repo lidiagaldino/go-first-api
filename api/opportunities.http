@@ -3,6 +3,7 @@ GET http://localhost:8080/api/v1/opening/1
 ###
 POST http://localhost:8080/api/v1/opening
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDQ5Mzg4NzYsImxvZ2luIjoiam9uQGdtYWlsLmNvbSJ9.-JJQXrUAE9t_P6INe1cp8-IXdzReaw0lpuBYebkFsNg
 
 {
     "role": "Software Engineer",

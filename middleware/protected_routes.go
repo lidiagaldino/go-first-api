@@ -9,7 +9,7 @@ import (
 	"github.com/lidiagaldino/go-first-api/utils"
 )
 
-func JwtAuthMiddleware(secret string) gin.HandlerFunc {
+func JwtAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		t := strings.Split(authHeader, " ")
