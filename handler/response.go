@@ -1,12 +1,23 @@
 package handler
 
 import (
+	"time"
+
 	"github.com/lidiagaldino/go-first-api/schemas"
 )
 
 type ErrorResponse struct {
 	Message   string `json:"message"`
 	ErrorCode string `json:"errorCode"`
+}
+
+type UserResponse struct {
+	ID        uint      `json:"id"`
+	Login     string    `json:"login"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
+	DeletedAt time.Time `json:"deletedAt,omitempty"`
 }
 
 type CreateOpeningResponse struct {
@@ -37,23 +48,23 @@ type UpdateUserResponse struct {
 }
 
 type CreateUserResponse struct {
-	Message string               `json:"message"`
-	Data    schemas.UserResponse `json:"data"`
+	Message string       `json:"message"`
+	Data    UserResponse `json:"data"`
 }
 
 type DeleteUserResponse struct {
-	Message string               `json:"message"`
-	Data    schemas.UserResponse `json:"data"`
+	Message string       `json:"message"`
+	Data    UserResponse `json:"data"`
 }
 
 type ShowUserResponse struct {
-	Message string               `json:"message"`
-	Data    schemas.UserResponse `json:"data"`
+	Message string       `json:"message"`
+	Data    UserResponse `json:"data"`
 }
 
 type ListUsersResponse struct {
-	Message string                 `json:"message"`
-	Data    []schemas.UserResponse `json:"data"`
+	Message string         `json:"message"`
+	Data    []UserResponse `json:"data"`
 }
 
 type LoginResponse struct {

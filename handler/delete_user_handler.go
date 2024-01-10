@@ -40,5 +40,14 @@ func DeleteUserHandler(ctx *gin.Context) {
 		return
 	}
 
-	utils.SendSuccess(ctx, "delete-user", user)
+	response := UserResponse{
+		ID:        user.ID,
+		Login:     user.Login,
+		Name:      user.Name,
+		CreatedAt: user.CreatedAt,
+		UpdatedAt: user.UpdatedAt,
+		DeletedAt: user.DeletedAt.Time, // Convert gorm.DeletedAt to time.Time
+	}
+
+	utils.SendSuccess(ctx, "delete-user", response)
 }

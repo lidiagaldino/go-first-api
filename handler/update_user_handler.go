@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/lidiagaldino/go-first-api/schemas"
+	"github.com/lidiagaldino/go-first-api/security"
 	"github.com/lidiagaldino/go-first-api/utils"
 )
 
@@ -39,9 +40,16 @@ func UpdateUserHandler(ctx *gin.Context) {
 		return
 	}
 
+	hash, err := security.HashPassword(request.Password)
+	if err != nil {
+		logger.Errorf("error hashing password: %v", err)
+		utils.SendError(ctx, http.StatusInternalServerError, "error hashing password")
+		return
+	}
+
 	user := schemas.User{
 		Login:    request.Login,
-		Password: request.Password,
+		Password: hash,
 		Name:     request.Name,
 	}
 
@@ -50,5 +58,13 @@ func UpdateUserHandler(ctx *gin.Context) {
 		return
 	}
 
-	utils.SendSuccess(ctx, "update-user", user)
+	response := UserResponse{
+		ID:        user.ID,
+		Login:     user.Login,
+		Name:      user.Name,
+		CreatedAt: user.CreatedAt,
+		UpdatedAt: user.UpdatedAt,
+	}
+
+	utils.SendSuccess(ctx, "update-user", response)
 }

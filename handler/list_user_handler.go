@@ -28,5 +28,16 @@ func ListUsersHandler(ctx *gin.Context) {
 		return
 	}
 
-	utils.SendSuccess(ctx, "list-users", users)
+	response := []UserResponse{}
+	for _, user := range users {
+		response = append(response, UserResponse{
+			ID:        user.ID,
+			Login:     user.Login,
+			Name:      user.Name,
+			CreatedAt: user.CreatedAt,
+			UpdatedAt: user.UpdatedAt,
+		})
+	}
+
+	utils.SendSuccess(ctx, "list-users", response)
 }

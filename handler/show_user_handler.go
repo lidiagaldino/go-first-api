@@ -34,5 +34,13 @@ func ShowUserHandler(ctx *gin.Context) {
 		return
 	}
 
-	utils.SendSuccess(ctx, "show-user", user)
+	response := UserResponse{
+		ID:        user.ID,
+		Login:     user.Login,
+		Name:      user.Name,
+		CreatedAt: user.CreatedAt,
+		UpdatedAt: user.UpdatedAt,
+	}
+
+	utils.SendSuccess(ctx, "show-user", response)
 }
