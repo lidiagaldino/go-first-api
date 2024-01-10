@@ -18,6 +18,7 @@ import (
 // @Produce json
 // @Param id path int true "User Identification"
 // @Param user body UpdateUserRequest true "User data to Update"
+// @Param Authorization header string true "With the bearer started"
 // @Success 200 {object} UpdateUserResponse
 // @Failure 400 {object} ErrorResponse
 // @Failure 404 {object} ErrorResponse

@@ -16,6 +16,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param request body CreateOpeningRequest true "Request body"
+// @Param Authorization header string true "With the bearer started"
 // @Success 201 {object} CreateOpeningResponse
 // @Failure 400 {object} ErrorResponse
 // @Failure 500 {object} ErrorResponse

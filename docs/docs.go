@@ -89,6 +89,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/handler.CreateOpeningRequest"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "With the bearer started",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -184,6 +191,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/handler.UpdateOpeningRequest"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "With the bearer started",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -231,6 +245,13 @@ const docTemplate = `{
                         "description": "Opening identification",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "With the bearer started",
+                        "name": "Authorization",
+                        "in": "header",
                         "required": true
                     }
                 ],
@@ -402,6 +423,13 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/handler.UpdateUserRequest"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "With the bearer started",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -449,6 +477,13 @@ const docTemplate = `{
                         "description": "User Identification",
                         "name": "id",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "With the bearer started",
+                        "name": "Authorization",
+                        "in": "header",
                         "required": true
                     }
                 ],

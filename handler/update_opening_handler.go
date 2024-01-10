@@ -17,6 +17,7 @@ import (
 // @Produce json
 // @Param id path int true "Opening Identification"
 // @Param opening body UpdateOpeningRequest true "Opening data to Update"
+// @Param Authorization header string true "With the bearer started"
 // @Success 200 {object} UpdateOpeningResponse
 // @Failure 400 {object} ErrorResponse
 // @Failure 404 {object} ErrorResponse

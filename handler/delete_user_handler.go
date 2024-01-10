@@ -17,6 +17,7 @@ import (
 // @Accept json
 // @Produce json
 // @Param id path int true "User Identification"
+// @Param Authorization header string true "With the bearer started"
 // @Success 200 {object} DeleteUserResponse
 // @Failure 400 {object} ErrorResponse
 // @Failure 404 {object} ErrorResponse

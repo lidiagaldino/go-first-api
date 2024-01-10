@@ -244,6 +244,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/handler.CreateOpeningRequest'
+      - description: With the bearer started
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -273,6 +278,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: With the bearer started
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -335,6 +345,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/handler.UpdateOpeningRequest'
+      - description: With the bearer started
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -417,6 +432,11 @@ paths:
         name: id
         required: true
         type: integer
+      - description: With the bearer started
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -483,6 +503,11 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/handler.UpdateUserRequest'
+      - description: With the bearer started
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:
