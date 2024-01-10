@@ -71,3 +71,7 @@ type ListUsersResponse struct {
 	Message string                 `json:"message"`
 	Data    []schemas.UserResponse `json:"data"`
 }
+
+type LoginResponse struct {
+	Token string `json:"token"`
+}

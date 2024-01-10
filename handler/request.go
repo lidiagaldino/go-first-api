@@ -92,3 +92,21 @@ func (r *UpdateUserRequest) Validate() error {
 
 	return fmt.Errorf("at least one field must be provided")
 }
+
+type LoginRequest struct {
+	Login    string `json:"login"`
+	Password string `json:"password"`
+}
+
+func (r *LoginRequest) Validate() error {
+	if r.Login == "" && r.Password == "" {
+		return fmt.Errorf("request body is empty or malformed")
+	}
+	if r.Login == "" {
+		return errParamIsRequired("login", "string")
+	}
+	if r.Password == "" {
+		return errParamIsRequired("password", "string")
+	}
+	return nil
+}

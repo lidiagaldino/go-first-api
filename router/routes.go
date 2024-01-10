@@ -25,6 +25,8 @@ func initializeRoutes(router *gin.Engine) {
 		v1.DELETE("/user/:id", handler.DeleteUserHandler)
 		v1.PUT("/user/:id", handler.UpdateUserHandler)
 		v1.GET("/users", handler.ListUsersHandler)
+
+		v1.POST("/login", handler.LoginHandler)
 	}
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
