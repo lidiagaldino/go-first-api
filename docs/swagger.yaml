@@ -21,10 +21,33 @@ definitions:
       message:
         type: string
     type: object
+  handler.CreateUserRequest:
+    properties:
+      login:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  handler.CreateUserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.UserResponse'
+      message:
+        type: string
+    type: object
   handler.DeleteOpeningResponse:
     properties:
       data:
         $ref: '#/definitions/schemas.OpeningResponse'
+      message:
+        type: string
+    type: object
+  handler.DeleteUserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.UserResponse'
       message:
         type: string
     type: object
@@ -44,10 +67,26 @@ definitions:
       message:
         type: string
     type: object
+  handler.ListUsersResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/schemas.UserResponse'
+        type: array
+      message:
+        type: string
+    type: object
   handler.ShowOpeningResponse:
     properties:
       data:
         $ref: '#/definitions/schemas.OpeningResponse'
+      message:
+        type: string
+    type: object
+  handler.ShowUserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.UserResponse'
       message:
         type: string
     type: object
@@ -73,6 +112,22 @@ definitions:
       message:
         type: string
     type: object
+  handler.UpdateUserRequest:
+    properties:
+      login:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  handler.UpdateUserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/schemas.UserResponse'
+      message:
+        type: string
+    type: object
   schemas.OpeningResponse:
     properties:
       company:
@@ -93,6 +148,23 @@ definitions:
         type: string
       salary:
         type: integer
+      updatedAt:
+        type: string
+    type: object
+  schemas.UserResponse:
+    properties:
+      createdAt:
+        type: string
+      deteledAt:
+        type: string
+      id:
+        type: integer
+      login:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
       updatedAt:
         type: string
     type: object
@@ -243,4 +315,156 @@ paths:
       summary: List openings
       tags:
       - Openings
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: Create a user
+      parameters:
+      - description: User data to create
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/handler.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/handler.CreateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Create user
+      tags:
+      - Users
+  /user/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a user
+      parameters:
+      - description: User Identification
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.DeleteUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Delete user
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Show a user
+      parameters:
+      - description: User identification
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.ShowUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Show user
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Update a user
+      parameters:
+      - description: User Identification
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User data to Update
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/handler.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.UpdateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Update user
+      tags:
+      - Users
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: List all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.ListUsersResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: List users
+      tags:
+      - Users
 swagger: "2.0"
