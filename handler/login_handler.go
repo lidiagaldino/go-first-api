@@ -4,7 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/lidiagaldino/go-first-api/authentication"
 	"github.com/lidiagaldino/go-first-api/schemas"
+	"github.com/lidiagaldino/go-first-api/utils"
 )
 
 func LoginHandler(ctx *gin.Context) {
@@ -12,7 +14,7 @@ func LoginHandler(ctx *gin.Context) {
 	ctx.BindJSON(&request)
 
 	if err := request.Validate(); err != nil {
-		sendError(ctx, http.StatusBadRequest, err.Error())
+		utils.SendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -21,15 +23,15 @@ func LoginHandler(ctx *gin.Context) {
 		Password: request.Password,
 	}
 	if err := db.Model(&user).Where("login = ? AND password = ?", user.Login, user.Password).First(&user).Error; err != nil {
-		sendError(ctx, http.StatusUnauthorized, "unauthorized user")
+		utils.SendError(ctx, http.StatusUnauthorized, "unauthorized user")
 		return
 	}
 
-	token, err := createToken.CreateToken(user.Login)
+	token, err := authentication.CreateToken(user.Login)
 	if err != nil {
-		sendError(ctx, http.StatusInternalServerError, "error creating token")
+		utils.SendError(ctx, http.StatusInternalServerError, "error creating token")
 		return
 	}
 
-	sendSuccess(ctx, "login", LoginResponse{Token: token})
+	utils.SendSuccess(ctx, "login", LoginResponse{Token: token})
 }

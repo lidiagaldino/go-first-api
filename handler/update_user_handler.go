@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/lidiagaldino/go-first-api/schemas"
+	"github.com/lidiagaldino/go-first-api/utils"
 )
 
 // @BasePath /api/v1
@@ -29,12 +30,12 @@ func UpdateUserHandler(ctx *gin.Context) {
 
 	if err := request.Validate(); err != nil {
 		logger.Errorf("error validating request: %s", err.Error())
-		sendError(ctx, http.StatusBadRequest, err.Error())
+		utils.SendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	if id == "" {
-		sendError(ctx, http.StatusBadRequest, errParamIsRequired("id", "param").Error())
+		utils.SendError(ctx, http.StatusBadRequest, errParamIsRequired("id", "param").Error())
 		return
 	}
 
@@ -45,9 +46,9 @@ func UpdateUserHandler(ctx *gin.Context) {
 	}
 
 	if err := db.Model(&user).Where("id = ?", id).Updates(user).Error; err != nil {
-		sendError(ctx, http.StatusInternalServerError, "error updating user")
+		utils.SendError(ctx, http.StatusInternalServerError, "error updating user")
 		return
 	}
 
-	sendSuccess(ctx, "update-user", user)
+	utils.SendSuccess(ctx, "update-user", user)
 }

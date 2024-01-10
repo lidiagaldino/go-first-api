@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/lidiagaldino/go-first-api/schemas"
+	"github.com/lidiagaldino/go-first-api/utils"
 )
 
 // @BasePath /api/v1
@@ -21,9 +22,9 @@ func ListOpeningsHandler(ctx *gin.Context) {
 	openings := []schemas.Opening{}
 
 	if err := db.Find(&openings).Error; err != nil {
-		sendError(ctx, http.StatusInternalServerError, "error listing openings")
+		utils.SendError(ctx, http.StatusInternalServerError, "error listing openings")
 		return
 	}
 
-	sendSuccess(ctx, "list-openings", openings)
+	utils.SendSuccess(ctx, "list-openings", openings)
 }

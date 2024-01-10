@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/lidiagaldino/go-first-api/schemas"
+	"github.com/lidiagaldino/go-first-api/utils"
 )
 
 // @BasePath /api/v1
@@ -23,15 +24,15 @@ import (
 func ShowUserHandler(ctx *gin.Context) {
 	id := ctx.Param("id")
 	if id == "" {
-		sendError(ctx, http.StatusBadRequest, errParamIsRequired("id", "param").Error())
+		utils.SendError(ctx, http.StatusBadRequest, errParamIsRequired("id", "param").Error())
 		return
 	}
 	user := schemas.User{}
 
 	if err := db.First(&user, id).Error; err != nil {
-		sendError(ctx, http.StatusNotFound, fmt.Sprintf("user with id %s not found", id))
+		utils.SendError(ctx, http.StatusNotFound, fmt.Sprintf("user with id %s not found", id))
 		return
 	}
 
-	sendSuccess(ctx, "show-user", user)
+	utils.SendSuccess(ctx, "show-user", user)
 }

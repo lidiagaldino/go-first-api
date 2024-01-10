@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/lidiagaldino/go-first-api/schemas"
+	"github.com/lidiagaldino/go-first-api/utils"
 )
 
 // @BasePath /api/v1
@@ -29,12 +30,12 @@ func UpdateOpeningHandler(ctx *gin.Context) {
 
 	if err := request.Validate(); err != nil {
 		logger.Errorf("error validating request: %s", err.Error())
-		sendError(ctx, http.StatusBadRequest, err.Error())
+		utils.SendError(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	if id == "" {
-		sendError(ctx, http.StatusBadRequest, errParamIsRequired("id", "param").Error())
+		utils.SendError(ctx, http.StatusBadRequest, errParamIsRequired("id", "param").Error())
 		return
 	}
 
@@ -48,9 +49,9 @@ func UpdateOpeningHandler(ctx *gin.Context) {
 	}
 
 	if err := db.Model(&opening).Where("id = ?", id).Updates(opening).Error; err != nil {
-		sendError(ctx, http.StatusInternalServerError, "error updating opening")
+		utils.SendError(ctx, http.StatusInternalServerError, "error updating opening")
 		return
 	}
 
-	sendSuccess(ctx, "update-opening", opening)
+	utils.SendSuccess(ctx, "update-opening", opening)
 }
