@@ -8,9 +8,7 @@ import (
 
 var secretKey = []byte("secret")
 
-type CreateToken struct{}
-
-func (t *CreateToken) CreateToken(login string) (string, error) {
+func CreateToken(login string) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"login": login,
 		"exp":   time.Now().Add(time.Hour * 24).Unix(),

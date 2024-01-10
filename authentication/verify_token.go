@@ -6,9 +6,7 @@ import (
 	jwt "github.com/golang-jwt/jwt/v5"
 )
 
-type VerifyToken struct{}
-
-func (t *VerifyToken) VerifyToken(tokenString string) error {
+func VerifyToken(tokenString string) error {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return secretKey, nil
 	})
